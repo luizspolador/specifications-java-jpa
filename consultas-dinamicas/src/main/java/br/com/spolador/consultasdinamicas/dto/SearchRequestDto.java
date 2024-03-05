@@ -7,8 +7,9 @@ public class SearchRequestDto {
     private String column;
     private String value;
     private Operation operation;
+    private String joinTable;
 
     public enum Operation{
-        EQUAL, LIKE, IN;
+        EQUAL, LIKE, IN, GREATER_THAN, LESS_THAN, BETWEEN, JOIN;
     }
 }

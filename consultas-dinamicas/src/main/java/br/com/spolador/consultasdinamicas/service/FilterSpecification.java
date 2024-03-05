@@ -45,6 +45,28 @@ public class FilterSpecification<T> {
                         Predicate in = root.get(requestDto.getColumn()).in(Arrays.asList(split));
                         predicates.add(in);
                         break;
+
+                    case LESS_THAN:
+                        Predicate lessThan = criteriaBuilder.lessThan(root.get(requestDto.getColumn()), requestDto.getValue());
+                        predicates.add(lessThan);
+                        break;
+
+                    case GREATER_THAN:
+                        Predicate greaterThan = criteriaBuilder.greaterThan(root.get(requestDto.getColumn()), requestDto.getValue());
+                        predicates.add(greaterThan);
+                        break;
+
+                    case BETWEEN:
+                        //"10, 20"
+                        String[] split1 = requestDto.getValue().split(",");
+                        Predicate between = criteriaBuilder.between(root.get(requestDto.getColumn()), Long.parseLong(split1[0]), Long.parseLong(split1[1]));
+                        predicates.add(between);
+                        break;
+
+                    case JOIN:
+                        Predicate join = criteriaBuilder.equal(root.join(requestDto.getJoinTable()).get(requestDto.getColumn()), requestDto.getValue());
+                        predicates.add(join);
+                        break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + "");
                 }
