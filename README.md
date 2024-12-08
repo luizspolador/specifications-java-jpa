@@ -1,0 +1,1 @@
+Exemplo uso de specifications.
